@@ -1,0 +1,5 @@
+CREATE TABLE test_table (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(40) NOT NULL,
+  price DECIMAL NOT NULL
+);
