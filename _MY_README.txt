@@ -7,13 +7,41 @@ ALT SETUP WITH REACT FIRST//////////////////////////
 Creat-react-app projectName
 DON'T FORGET to CD into the FUCKING folder!
 
+Git///////////////////////////////////
+Open gitbash terminal in root of project on computer
+run git init
+Go to github and create a repo 
+In gitbash run:
+ git add .  
+ git commit -m "first commit"
+ git remote add origin https://github.com/pcdavis/url-of-remote-repository -- USE THE CORRECT URL FOR YOUR repo
+ git push origin master
+
 
 SETUP //////////////////////////////
-npm init -y
+npm init -y  // This creates the package.json file
 run npm install --save express express-static express-session body-parser dotenv cors massive react-router-dom axios
 
+SKELETON FOLDER TRANSFER /////////////
+In Windows Explorer, open the skeleton and copy and paste the following folders into the root of your project: server, db, _SNIPPETS
+
+In server folder, rename zample-index.js and update it for what you need.
+
+Create a .env file in your root. Copy and paste the skeleton code into it.
+IMPORTANT: IN THE .ENV FILE USE YOUR OWN HEROKU DATABASE URI FOR CONNECTION_STRING
+My uri is stored in google docs
+
+NOTE: check the .env PORT and make sure it matches with package.json and the server index's app.listen call.
+Update package.json with:
+ "main": "server/index.js"
+ "proxy": "http://localhost:3005"
+
+Note: express.static is unclear to me. I need to confirm how it works.
+
+BE SURE TO DO SEARCH FOR 'zample-' to find and change any names
 Create folder for server. Inside it create folders for controllers and middlewares
 Create db foler in root to hold sql files
+
 
 Create server's index.js file in server folder - import statements, app=express high-level middleware with app.use bodyparser, session, express.static, createInitalSession and other middleware 
 go to heroku and get database uri add ?ssl=true

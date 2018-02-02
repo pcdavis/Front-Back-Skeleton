@@ -10,10 +10,10 @@ const massive = require('massive');
 //Import High-Level Middleware that I created
 const checkForSession = require('./middlewares/zample-checkForSession');
 
-//Import Controllers I created that are used in Endpoints
+//Import Controllers to use in Endpoints. Below is an example
 const auth_controller = require('./controllers/auth_controller')
-const swag_controller = require('./controllers/swag_controller');
-const cart_controller = require('./controllers/cart_controller');
+// const swag_controller = require('./controllers/swag_controller');
+// const cart_controller = require('./controllers/cart_controller');
 
 // Instantiate express
 const app = express();

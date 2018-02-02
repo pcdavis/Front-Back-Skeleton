@@ -28,17 +28,7 @@
       "test": "react-scripts test --env=jsdom",
       "eject": "react-scripts eject"
     },
-    "proxy": "http://localhost:3000",
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/devlemire/swag-node-shop.git"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-      "url": "https://github.com/devlemire/swag-node-shop/issues"
-    },
-    "homepage": "https://github.com/devlemire/swag-node-shop#readme"
+    "proxy": "http://localhost:3005"
+
   }
   
