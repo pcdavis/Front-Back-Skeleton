@@ -10,7 +10,8 @@ DON'T FORGET to CD into the FUCKING folder!
 
 SETUP //////////////////////////////
 npm init -y
-npm install --save massive express express-session body-parser cors dotenv react-router-dom axios 
+run npm install --save express express-static express-session body-parser dotenv cors massive react-router-dom axios
+
 Create folder for server. Inside it create folders for controllers and middlewares
 Create db foler in root to hold sql files
 

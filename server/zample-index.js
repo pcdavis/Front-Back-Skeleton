@@ -1,8 +1,9 @@
 //Basic server setup that includes sessions and massive
-//run npm install --save express body-parser express-session dotenv cors massive 
+//run npm install --save express express-static body-parser express-session dotenv cors massive 
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const serve   = require('express-static'); 
 require('dotenv').config();
 const cors = require('cors');// potentially not necessary
 const massive = require('massive'); 
@@ -34,6 +35,7 @@ app.use( session({
     resave: false, //if they don't modify the session, don't save it
     saveUninitialized: true //even if they don't initialize their store session with adding data, still want to keep the session in case they do add something.
 }) );
+app.use( express.static( `${__dirname}/build` ) );//use static to serve up the build folder in `/build`. // alternative to invoking with express.static is declaring const serve = require('express-static'); and then use 'serve' instead of 'express.static' example: app.use(serve(__dirname + '/public'));
 app.use( checkForSession );
 
 //Endpoints
