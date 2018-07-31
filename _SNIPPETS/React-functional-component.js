@@ -9,3 +9,8 @@ export default function Generic(props){
             </div>
     )
 }
+
+
+// you can also use arrow function
+
+const Hello = ({greeting, firstName}) => <div>{greeting} {firstName} </div>

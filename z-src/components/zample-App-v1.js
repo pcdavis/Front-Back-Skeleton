@@ -10,14 +10,20 @@ import { ToastContainer, toast } from 'react-toastify'; // Reference: https://ww
 import Notifications, {notify} from 'react-notify-toast'; // use npm to install it npm install react-notify-toast --save  reference source for using: https://www.npmjs.com/package/react-notify-toast
 import Toast from 'react-notify-toast/bin/components/Toast';
 
-
 import router from '../router';
+
+//this version has an Auth0 button with a wrapping link that takes user to our server's auth0 endpoints that we use to connect to Auth0 service
 
 class App extends Component {
   render() {
     return (
       <div>
          <ToastContainer />
+
+         <a href='http://localhost:3005/auth' >
+        <button type='' className='auth0-login-button' ></button>
+        </a>
+
         <nav className='nav'>
           <div className="logo-wrap" >
           <Link className='links logo' to='/'> <img alt='logo' src={logo} /> </Link>

@@ -2,8 +2,7 @@
     "name": "swag-node-shop",
     "version": "1.0.0",
     "description": "Node 3 - Afternoon",
-    "main": "server/index.js",//This should match the name and path of the server
-    "dependencies": {
+     "dependencies": {
       "axios": "^0.16.2",
       "body-parser": "^1.18.2",
       "dotenv": "^5.0.0",
@@ -28,6 +27,7 @@
       "test": "react-scripts test --env=jsdom",
       "eject": "react-scripts eject"
     },
+    "main": "server/index.js",//This should match the name and path of the server
     "proxy": "http://localhost:3005"
 
   }

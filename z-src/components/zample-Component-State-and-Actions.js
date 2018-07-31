@@ -5,7 +5,7 @@ import "./ComponentName.css";
 import {connect} from 'react-redux'
 //Import other needed components that get displayed in this component
 import Swag from './somepath/Swag';
-import {getSwag, actionCreator1, actionCreator2} from './ducks/zample-router.js'; // import action creators that get used as arguments in connect, which makes them available as props 
+import {getSwag, actionCreator1, actionCreator2} from './ducks/zample-reducer.js'; // import action creators that get used as arguments in connect, which makes them available as props 
 
 
 class ComponentName extends Component {
@@ -54,14 +54,22 @@ componentDidMount() {
 }//end of render
 }//end of component
 
-let actions = {
+let mapDispatchToProps = {
+    getSwag: getSwag,
     actionCreator1: actionCreator1, 
     actionCreator2: actionCreator2
 }
 function mapStateToProps(state){
   return state // don't have to use the whole state object. You can choose parts
+  whatever: state.nameOfPropInStateObj // subscribe to some state property and assign it to 'whatever' variable name you want. To use it you call this.props.whatever. Or you can deconstruct the props like I do at the top of the code with {whatever, x, y, z} = this.props.
 }
 
-let insAndOuts = connect(mapStateToProps, actions); // when connect is invoked, it takes state and actions and makes them available to subscribe or do actions
+let insAndOuts = connect(mapStateToProps, mapDispatchToProps); // when connect is invoked, it takes state and actions and makes them available to subscribe or do actions
 
-export default insAndOuts(App);
+export default insAndOuts(ComponentName);
+//Alternative: export default connect (mapStateToProps, mapDispatchToProps)(GenericComponent)
+
+//////////Alternatives
+
+export default connect (null, {genericAction: genericAction})(GenericComponent) // this method just descructures the action object and passes it in as the second argument. Or you can bundle all the action objects into an object called mapDispatchToProps and pass that in as the second argument to connect
+export default connect (null, mapDispatchToProps)(GenericComponent)

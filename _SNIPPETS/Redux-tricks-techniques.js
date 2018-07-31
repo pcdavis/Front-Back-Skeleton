@@ -1,4 +1,4 @@
-//////Reducer - Add or remove an item from the state of an array////////////////
+//  Reducer - Add or remove an item from the state of an array----------------------------
 export default function reducer(state,action){
     switch(action.type){
         case ADD_CHORE:  

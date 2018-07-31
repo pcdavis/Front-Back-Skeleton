@@ -18,3 +18,32 @@ if(!data){
     > Undo </button>
 /////////////////
 
+//  SHOW OR HIDE REACT ELEMENTS: 2 OPTIONS ///////////////////////////
+// OPTION 1: Render or Not Render a DOM element  ////////////////////
+        var partial;
+        if(this.props.gender === "male"){
+            partial = <div>Hello Mr. Jones</div>
+        } else {
+            partial = <div>Hello Mrs. Jones</div>
+        }
+        return (
+            <div>
+                {partial}
+           </div>
+        );
+// OPTION 2: Use CSS to toggle visibility of DOM elements  ////////////////////
+    var classMale = "";
+    var classFemale = "";
+        if(this.props.gender === "male"){
+            classFemale = "displayNone"; // in the css .displayNone { display: none}
+        }  else{
+            classMale = "displayNone";
+        }
+        return (
+            <div>
+                <div>Greeting</div>
+                <div className={classFemale}>Hello Mrs. Jones</div>
+                <div className={classMale}>Hello Mr. Jones</div>
+            </div>
+        );
+
