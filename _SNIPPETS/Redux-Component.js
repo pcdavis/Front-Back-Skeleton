@@ -7,8 +7,8 @@
 // Last, but not least, inside the component's render function - deconstruct the this.props into constants that represent states and actions that you can use in the jsx to subscribe to state changes or communicate actions to the reducer.
 
 // replace generic items check pathways
-import React, { Component } from "react";
-import {connect} from 'redux';
+import React, { Component } from "../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react";
+import {connect} from '../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/redux';
 //import "./Component.css";
 import {generic_action, someAction2} from '../ducks/reducer';//check name of reducer
 import reducer from "./Redux-tricks-techniques";
@@ -56,3 +56,13 @@ const mapDispatchToProps = {
 
 export default connect (null, {genericAction: genericAction})(GenericComponent) // this method just descructures the action object and passes it in as the second argument. Or you can bundle all the action objects into an object called mapDispatchToProps and pass that in as the second argument to connect
 export default connect (null, mapDispatchToProps)(GenericComponent)
+
+//Udemy course did the following differently:
+// in the import statements used bindActionCreators;
+import { bindActionCreators } from '../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/redux';
+
+//In the mapDispatchToProps he did this:
+function mapDispatchToProps(dispatch){
+    bindActionCreators({actionCreator1}, dispatch );
+}
+export default connect( null, mapDispatchToProps )(ComponentName)

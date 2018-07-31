@@ -30,7 +30,7 @@ export function genericAction(genericValue){
 
 
 
-////////Below is an example reducer /////////
+///Below is an example reducer //--------------------------
 // const ADD_CHORE = 'chores/ADD_CHORE';
 // const REMOVE_CHORE = 'chores/REMOVE_CHORE';
 
@@ -59,3 +59,28 @@ export function genericAction(genericValue){
 //             return state
 //     }
 // }
+
+//Another example- ----------------------------
+
+const UPDATE_NAME = "UPDATE_NAME";
+
+const intialState = {
+    name: ''
+}
+
+export default function( state = intialState, action ){
+    switch(action.type){
+        case UPDATE_NAME:
+        return Object.assign( { }, state, { name: action.payload} );
+
+        default:
+        return state;
+    }
+}
+
+export function deliver_name( newName ){
+    return {
+        type: UPDATE_NAME,
+        payload: newName
+    }
+}

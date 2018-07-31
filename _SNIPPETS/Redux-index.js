@@ -1,12 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from "../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react";
+import ReactDOM from "../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react-dom";
 
 import "./index.css";
 
 import App from "./App";
 
 import store from './store'
-import { Provider } from 'react-redux' //Notice react-redux, not redux. 
+import { Provider } from '../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react-redux' //Notice react-redux, not redux. 
 
 //Index is very commonly used for setup.  We don't do routes, or other actual code in here.  Just wire up pieces.
 
@@ -17,3 +17,24 @@ let topLevelComponentWithStore = (
     </Provider>)
 
 ReactDOM.render(topLevelComponentWithStore, document.getElementById('root'));
+
+
+// Below is example with Middleware /////////////////////////////////////////////
+
+import React from '../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react';
+import ReactDOM from '../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react-dom';
+import { Provider } from '../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react-redux';
+import { createStore, applyMiddleware } from '../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/redux';
+import ReduxPromise from '../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/redux-promise';
+
+import App from './components/app';
+import reducers from './reducers';
+
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+
+ReactDOM.render(
+  <Provider store={createStoreWithMiddleware(reducers)}>
+    <App />
+  </Provider>
+  , document.querySelector('.container'));
+

@@ -1,6 +1,6 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var cors = require('cors');
+var express = require('../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/express');
+var bodyParser = require('../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/body-parser');
+var cors = require('../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/cors');
 
 var app = express();
 app.use(bodyParser.json());
