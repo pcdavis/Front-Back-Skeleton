@@ -484,9 +484,37 @@ CSS RESET----------------------------------------
 In the root folder create a new file css-reset.css //copy and paste css-reset-meyers from snippets folder.
 In index.js import the reset: import './css-reset.css'
 
+
+
 Styled-Components-------------------------------------------
+Basic concept: Use the styled-component library syntax to create React components 
+Place all your css between the back ticks (js string interpolation)
+Use ${ } to insert any code logic you want to determine which css props to display
+Chain attributes like styled.PasswordInput.attr({ type: 'password'}) 
+
+Exammple----------------
+import styled, { css } from 'styled-components'
+const Button = styled.button`
+  border-radius: 3px;
+  padding: 0.25em 1em;
+  background: ${props=> props.theme.backgroundColor};
+  color: ${props=> props.theme.primaryColor};
+  border: 2px solid primaryColor;
+  font-size: 3em;
+
+  ${props => props.danger && css`
+  background: ${props=> props.theme.dangerColor};
+  color: white;
+  ` }
+`;
+export default Button;
+
+
+
+
 npm install --save styled-components // not necessary if using react-boilerplate
-in your react component: import the styled components that you create and want to use inside your React component. Also import ThemeProvider if you use that from styled-components. For a good example - use github.com/pcdavis/
+in your react component: import the styled components that you create and want to use inside your React component. Also import ThemeProvider if you use that from styled-components. 
+
 example: import Button from './styled_components/Button.js'    
 example: import { ThemeProvider } from 'styled-components';
 
@@ -512,6 +540,9 @@ const AppWrapper = styled.div`
     background: white;
   }
 `;
+
+
+//------------------------------------------------------------------------------------
 
 
 REDUX
