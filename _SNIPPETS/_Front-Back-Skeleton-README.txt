@@ -3,8 +3,6 @@ Install node from website (exe that installs node and npm)
 npm install -g create-react-app
 npm install -g eslint
 
-
-
 SETTING UP A FULL STACK APP THAT INCLUDES: 
 Front End: React, Redux, and Router 
 Server: Express, Massive, Sessions, and Auth0

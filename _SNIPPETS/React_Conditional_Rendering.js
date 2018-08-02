@@ -429,3 +429,28 @@ display: block;
 .inactive{
 display: none;
 }
+
+//--------------using a ternary to determine which class gets applied to the component ---------------
+import './practice_button_css.css'
+const practice_button = (props) => {
+    return (
+    <div>
+        <button className={props.primary ? "btn btn-primary" : "btn"} >
+            {props.children}
+        </button>
+    </div>
+    )
+}
+export default practice_button
+//Here is the css file:
+.btn {
+    background-color: blue;
+    color: white;
+    font-size: 20px;
+}
+
+.btn-primary {
+    background-color: red;
+}
+
+//--------------------------------------------------
