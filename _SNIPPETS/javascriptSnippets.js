@@ -70,21 +70,39 @@ case REMOVE_CHORE:
     
 // INPUT FIELD---------//Set the state from the onChange field - eliminate the need for separate handleChange function. Plus it is easier to grab the value of the input field
 <input 
-value={this.state.term}
+value={this.state.term} // get the actual value of the field from state, not from the event obj
 onChange={event => this.setState({term: event.target.value})} />;
 <h1>{this.state.term}</h1> // use this to see on the page if it is working
 
-//Another way to capture value with on handler:
-
+//Another way to capture value with one handler:
 handleChange(event){
   let name = event.target.name;
   let value = event.target.value;
   this.setState({ [name]: value})
   console.log(name, value)
 }
+//IMPORTANT: I think, if you use a function like above, then you MUST bind it to this in the constructor. But if you use a function expression with an arrow function like below, then you don't need to bind this.
+//Also - the syntax below is how you create a method in a constructor function. You don't use const or let in front of the variable name.
 
-<input value={this.state.name} name="title" type="text" onChange={this.handleChange} />
-      <input value={this.state.
+handleChange = (event) => {
+  const key = event.target.name;
+  const value = event.target.value;
+  this.setState({ [key]: value })
+}
+
+<input 
+value={this.state.name} 
+name="firstName" 
+type="text" 
+onChange={this.handleChange} />
+      
+<input 
+value={this.state.name} 
+name="lastName" 
+type="text" 
+onChange={this.handleChange} />
+
+// The key to using one handler is to use the brackets around [name] to set the state object's key value. The brackets are needed because that is a javascript way to dynamically set an object's key values. You can't just pass the variable name. It must be placed in brackets.
 
 //Trick to solve Type is undefined error//
 //This  it may be because the computer attempts to render some item that is waiting on an api call or a callback. Use this code to prevent it:

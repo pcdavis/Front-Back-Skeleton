@@ -1,0 +1,9 @@
+
+MARGIN COLLAPSE - can really fuck up spacing of elements, especially using margin-top on a child element, which will affect parent element's top margin.
+Solution: Use padding on parent to move child or switch to display: grid or flex, which gets rid of margin collapse - here's a good video: https://www.youtube.com/watch?v=uEfH6qnFF6Y
+
+Use box-sizing: border-box to control sizes of of things. otherwise you have to add padding to height and width to determine total content: '\e432';
+
+
+
+<link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico|Passion+One:400,700|Roboto+Slab:100,400,700" rel="stylesheet">

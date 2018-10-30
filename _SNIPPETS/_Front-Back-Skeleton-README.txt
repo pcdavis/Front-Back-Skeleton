@@ -27,7 +27,8 @@ Group files by feature // allows you to use in any app
         -reducer.js
 -components
     -App.js
-
+-.env // use to save passwords, tokens, etc and hide from github by placing .env in .gitignore
+-.gitignore // use for things you don't want up on github like passwords, connections strings, npm modules, etc
 
 CLONING A PROJECT FROM GITHUB -------------------------------
 1. Fork the project into your github account
@@ -116,6 +117,7 @@ CREATE HEROKU DATABASE--------------------------
 Here is a step-by-step guide to setting up a postgress database via heroku https://github.com/kendagriff/sql-setup
 After the heroku database is set up, copy the connection string and paste it into the .env file. 
     CONNECTION_STRING = postgres://rmgcoqnvpxmeop:a74a5b2d4880ab2263debf8769b897618d877ce8bc8f5691c808b89470c36c8f@ec2-54-243-59-122.compute-1.amazonaws.com:5432/d9nf8pqdnfj8qp?ssl=true
+The connection string will be used as an argument by massive middleware to manage the db connection
 IMPORTANT: make sure to add ?ssl=true to the end of the connection string.
 IMPORTANT: Use Excel to plan out the tables you will need.
 
@@ -150,7 +152,7 @@ Run multiple queries making sure your tables return exactly what your app needs 
 SET UP SERVER---------
 
 NPM INSTALL---------------------------------------------------------
-run npm install --save express express-static express-session body-parser dotenv cors massive react-router-dom axios react-redux redux redux-promise redux-promise-middleware redux-form react-toastify hash-router browser-router lodash passport passport-auth0 material-ui react-tap-event-plugin styled-components gsap interactjs tweenjs npm install @tweenjs/tween.js react-icons
+run npm install --save express express-static express-session body-parser dotenv cors massive react-router-dom axios react-redux redux redux-promise redux-promise-middleware redux-form react-toastify hash-router browser-router lodash passport passport-auth0 material-ui react-tap-event-plugin styled-components gsap interactjs tweenjs npm install @tweenjs/tween.js react-icons enzyme enzyme-adapter-react-16
 
 If it is a socket.io project, npm install --save socket.io socket.io-react and include these dev dependencies: --save-dev babel-cli babel-preset-env babel-preset-stage-0  //Also consider looking at socket.io-redux
 For testing with Cypress npm install --save-dev cypress 
@@ -159,6 +161,87 @@ For testing with Cypress npm install --save-dev cypress
 
 
 TESTING------------------------------------------------------------------
+Steps for determing what to test:
+1. Look at the code for each feature
+2. Try to explain to a friend what it is supposed to do
+3. Write a test that confirms it does it
+
+Jest looks for files that end in .test.js or folders titled __tests__
+Jest uses a global function called 'it' to run tests. It takes 2 arguments: a descrption string and a function that runs the test.
+The function basically re-creates the React component we want to test and then uses expectations to see if certain things are present. A single it function can have multiple expectations
+TIP:  throw in a console log to inspect the value of things you want to use for expectations
+
+Example:
+it('shows a comment box', () => {
+    const div = document.createElement('div');  // create a div
+    ReactDOM.render(<App />, div)               // render the App component into the div ---- these first two lines re-create what our React app does and allows us to then have expectations
+    console.log(div.innerHTML)                  // This will show you what div contains to help you with writing expect statements
+    expect(div.innerHTML).toContain('Hello')   //Now we can expect something and see if it has it. 
+    ReactDOM.unMountComponentAtNode(div)
+})
+
+IMPORTANT: If you use enzyme, you can skip creating the div and then rendering the component in the div like above.
+
+//-------Enzyme-------------------------------
+Enzyme is a package by airbandb to make it easier to write jest expectations. See all the methods at airbnb.com/enzyme
+IMPORTANT: it requires a little setup. See below.
+Enzyme SETUP-------------------------------
+npm install --save enzyme enzyme-adapter-react-16  // IMPORTANT: the last number is whatever version of react you are using. Check your package.json file. 
+IMPORTANT: Create a new file in your src directory: src/setupTests.js // place the following code in that file: 
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({adapter: new Adapter() });
+
+End of setup--------------------------------
+
+Enzyme's three main methods: static, shallow, and full DOM.
+Static - render the given component and return plain html - but no interaction like click events
+Shallow - render just the given component and it's html children, but no React component children 
+Full DOM - render the component and all of its children + lut us modify it afterwards - Allows you to simulate interactions like click events
+
+Conceptual Mental Model----------
+1. import react, enzyme, { enzymeMethodYouNeed }, the compnent you are testing and any subcomponents that you want to test if present
+2. Basic structure goes like this: beforeEach -> it -> expect -> afterEach(unmount)
+
+Enzyme syntax example----------------
+
+import React from 'react';
+import Enzyme from 'enzyme';
+import { shallow } from 'enzyme';
+import Comments_Page from 'pages/Comments_Page'
+import CommentBox from 'components/CommentBox';
+import CommentList from 'components/CommentList';
+
+let myWrappedComponent; 
+
+beforeEach(() => {
+    myWrappedComponent = shallow(<Comments_Page />);
+})
+
+it('should show CommentBox', () => {
+   expect(myWrappedComponent.find(CommentBox).length).toEqual(1)
+})
+
+it('should show CommentList', () => {
+    expect(myWrappedComponent.find(CommentList).length).toEqual(1)
+})
+
+//What's happening is that the shallow method wraps the component you want to inspect. Then you can find any component that should be inside of the wrapped component. Find returns an array, so .length says how many copies of the found component are returned. The beforeEach method let's you create the myWrappedComponent each time a new it method is executed. Have to declare the myWrappedComponent variable outside so all tests have access to it.
+
+Simulating events---------------
+IMPORTANT: setState is ASYNCHRONOUS!  If you simulate anything that invokes setState, follow it with enzyme method, 'update' to immediately get state to update.
+Example:
+it('checks if new comment was input into text box', () => {
+    wrapped.find('textarea').simulate('change', {
+        target: { value: 'hello paul'}
+    })
+    wrapped.update();
+    expect(wrapped.find('textarea').prop(value)).toEqual('hello paul');
+})
+
+//End of Enzyme ----------------------------
+
 Jest for unit testing 
 Cypress for site testing
 Update package.json files with some extra scripts: //Note: when you run the script you type npm run cypress:open or whatever you want to call your script
@@ -183,7 +266,12 @@ app.use((req, res, next)=>{
     next()
 })
 
+//-----End of testing------------------------------------------------------------------------------------------------------------------------
 
+
+Absolute Path Option------------------------------------------------
+You can change your import statements from relative to absolute by updating your .env file with the line NODE_PATH=src/
+Now instead of import MyComponent from '../../components/MyCompnent' your paths will all start from src/ so it becomes import MyCompnent from 'compnents/MyCompnent' 
 
 
 ---------------Socket.io possible issues -------------------------------------------
@@ -221,23 +309,26 @@ BUILD THE SERVER----------------------------------------------------------------
 
 Add the following to .env file:
 SERVER_PORT = 3005
-SESSION_SECRET = shadow
+SESSION_SECRET = shadow // this is used by sessions - put it in the .env file so that you can hide it from the production version of the site
 
 // Here is what the final .env file should look like after all relevant items are added:
-//CONNECTION_STRING = postgres://rmgcoqnvpxmeop:a74a5b2d4880ab2263debf8769b897618d877ce8bc8f5691c808b89470c36c8f@ec2-54-243-59-122.compute-1.amazonaws.com:5432/d9nf8pqdnfj8qp?ssl=true
-//SERVER_PORT = 3005
-//SESSION_SECRET = alanisgreat
-//DOMAIN = travelbrains.auth0.com
-//CLIENTID = QV3sPrX7GUmkHX4jZceYZym37s5nthFg
-//CLIENT_SECRET = VHdp_wR9EHOkmpRvRlmElOApnOTvHDKo7OEDppVGaXTjGtXBTewv720EPD0MUah-
-//CALLBACK_URL = http://localhost:3005/auth/callback
-//REACT_APP_LOGIN= http://localhost:3005/auth
+CONNECTION_STRING = postgres://rmgcoqnvpxmeop:a74a5b2d4880ab2263debf8769b897618d877ce8bc8f5691c808b89470c36c8f@ec2-54-243-59-122.compute-1.amazonaws.com:5432/d9nf8pqdnfj8qp?ssl=true
+SERVER_PORT = 3005
+SESSION_SECRET = alanisgreat
+DOMAIN = travelbrains.auth0.com
+CLIENTID = QV3sPrX7GUmkHX4jZceYZym37s5nthFg
+CLIENT_SECRET = VHdp_wR9EHOkmpRvRlmElOApnOTvHDKo7OEDppVGaXTjGtXBTewv720EPD0MUah-
+CALLBACK_URL = http://localhost:3005/auth/callback
+REACT_APP_LOGIN= http://localhost:3005/auth
 
 
 
 SERVER/index.js---------------------------------------------------
 IMPORTANT: The lexical order is important. Sessions must be used before passport.
-IMPORTANT: Any calls to sql files that pass in arguments - the arguments must be placed in [ ]
+IMPORTANT: Any calls to sql files that pass in arguments - the arguments must be placed in [ ] 
+            //example: if(req.user){
+            const user_id = req.user.user_id;
+            db.sq_fetch_stackTitles([user_id])
 
 require('dotenv').config();
 const express = require('express');
@@ -249,12 +340,12 @@ const cors = require('cors');// potentially not necessary
 const massive = require('massive'); 
 
 //Import Controllers I created that are used in Endpoints
-// const swag_controller = require('./controllers/swag_controller');
+// example: const swag_controller = require('./controllers/swag_controller');
 
 const app = express(); 
 
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET, 
     resave: false,
     saveUninitialized: true
 }))
@@ -265,8 +356,9 @@ massive(process.env.CONNECTION_STRING).then( dbInstance => {
 }).catch(console.log);
 
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session()); //I think that this line makes sessions ready to use even before the user tries to login to their account via passport 
 
+//below, passport.use() takes 2 arguments: a new Auth0 strategy instantiation and what looks like a callback function that includes the profile object, which contains useful variables 
 passport.use(new Autho0Strategy({
     domain: process.env.DOMAIN,
     clientID: process.env.CLIENTID,
@@ -481,8 +573,8 @@ className="btn btn-danger pull-xs-right" // this will pull a button to the far r
 className="btn btn-primary" 
 
 CSS RESET----------------------------------------
-In the root folder create a new file css-reset.css //copy and paste css-reset-meyers from snippets folder.
-In index.js import the reset: import './css-reset.css'
+Open the index.css file and paste the code from css-reset.css 
+In index.js make sure to include: import './css-reset.css'
 
 
 
