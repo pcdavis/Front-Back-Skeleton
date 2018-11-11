@@ -1,5 +1,5 @@
 Steps for setting up full CRUD server - Options for Redux and router
-test of something to use git.
+test of something to use git. second test.
 
 CREATE HEROKU DATABASE//////////////////////////
 https://github.com/kendagriff/sql-setup
