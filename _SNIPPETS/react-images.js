@@ -9,33 +9,30 @@
 
 // Second way is using an Image component - this allows you to set image as background image using css - here's an article about it: http://blog.matthewcheok.com/a-better-img-tag/
 
-import React, {Component} from 'react';
+import React, { Component } from "react";
 
-export default class Image extends Component {  
+export default class Image extends Component {
   render() {
-    let {mode, src, height, width, style, ...props} = this.props;
-    let modes = {
-      'fill': 'cover',
-      'fit': 'contain'
-    };
-    let size = modes[mode] || 'contain';
-
+    let { mode, position, src, height, width, otherStyles, ...props } = this.props;
+ 
     let defaults = {
       height: height || 100,
       width: width || 100,
-      backgroundColor: 'gray'
+      backgroundColor: "gray",
+      backgroundPosition: position || "center",
+      backgroundRepeat: "no-repeat"
     };
 
-    let important = {
-      backgroundImage: `url("${src}")`,
-      backgroundSize: size,
-      backgroundPosition: 'center center',
-      backgroundRepeat: 'no-repeat'
+    let mainStyles = {
+      backgroundImage: `url(${src})`,
+      backgroundSize: mode
     };
 
-    return <div {...props} style={{...defaults, ...style, ...important}} />
+    return <div {...props} style={{ ...defaults, ...otherStyles, ...mainStyles }} />; // defaults,style, and important are all objects containing key value pairs of css rules that get spread into the style property being passed to the component for rendering
   }
 }
+    
+
 
 // Then import it and use it in any component and use props to set image css rules:
 
@@ -50,11 +47,13 @@ class Comment extends Component {
       <div>
         <Image
           src="https://images.unsplash.com/photo-1537815749002-de6a533c64db?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=735c6354489da55b42db4e96d1c932f8&auto=format&fit=crop&w=845&q=80"
-          mode="fill"
+          mode="cover"
+          position="center"
           width="100vw"
           height="50px"
           alt="none"
-        />
+          otherStyles={{border:'2px solid red'}}
+      />
         <h1>Paul Davis</h1>
         <p>{date}</p>
       </div>

@@ -38,8 +38,11 @@ CLONING A PROJECT FROM GITHUB -------------------------------
     
 
 FRONT-END -------------------------------------
-creat-react-app app-name
+npx create-react-app app-name // or 'npx create-react-app .'   to create the react app using the folder name and placing all the contents in the folder and not a subfolder. IMPORTANT react app names can not contain capital letters
 npm start
+
+Fake / Dummy Data ------------------------------------
+npm install --save faker // this allows you to add fake data to your app to see what things will look like before you use real data. IMPORTANT: must import faker library (import faker from 'faker') into any react component that uses it. Then to use it, you reference it in curly braces in the jsx using object notation (look at faker API for structure: https://github.com/marak/Faker.js/) and invoke it with (). Here's an example of an avatar usage <img src={faker.image.avatar()}/>
 
 REACT-BOILERPLATE-----------------------------
 Detailed instructions at https://github.com/react-boilerplate/react-boilerplate/blob/master/docs/general/commands.md
@@ -49,64 +52,6 @@ Detailed instructions at https://github.com/react-boilerplate/react-boilerplate/
 3. npm run clean // Deletes the example app, replacing it with the smallest amount of boilerplate code necessary to start writing your app! Note: This command is self-destructive.
 4. npm run generate // Allows you to auto-generate boilerplate code for common parts of your application, specifically components, and containers. You can also run npm run generate <part> to skip the first selection. (e.g. npm run generate container)
 5. npm start // Starts the development server and makes your application accessible at localhost:3000. Tunnels that server with ngrok, which means the website accessible anywhere! Changes in the application code will be hot-reloaded.
-
-
-
-Git--------------------------------------------
-git commands---------------
-git commit -am "commit message" // this is a shortcut to do add and commit at same time
-cat .git/HEAD // this will show you where the git head is pointing to
-git log --oneline  // this will show you the log of commits  IMPORTANT press q to exit the log command
-git diff branchName..otherBranchName  // this compares the branches 
-git branch --merged  // this will tell you which branches are 100% included/contained in your current working branch. If a branch is contained, you can delete it and know that you still have all of the deleted branch's code in your current working branch
-git branch --move currentBranchName newBranchName  // this allows you to change the branch name. shortcut is git -m name newBranchName
-git branch -d branchName // this deletes the branch (must be on a different branch to delete another branch)
-git remote // shows all the remotes 
-git remote add origin url // this will tell git to create a remote repo and point to the url as the location of the repo. The word 'origin' is not maditory (it's convention to call your primary repo origin) You can have multiple remote repos, but must be named differently.
-git remote rm origin // this will allow you to remove the remote repo from git. You can add it back again with git remote add origin url like before
-cat .git/config  // this will show you your git config file with info like where your remote repo url is
-
-
-git SETUP-----------------
-Open gitbash terminal in root of project on computer
-run git init
-Go to github and create a repo 
-In gitbash run:
- git add .  
- git commit -m "Out of the night that covers me, black as the pit from pole to pole. I thank whatever gods may be, for my unconquerable soul."
- git remote add origin https://github.com/pcdavis/url-of-remote-repository -- USE THE CORRECT URL FOR YOUR repo // The word 'origin' is a name you create to identify the remote location. YOu can call it something ele. 
- For your first push to github you use: git push --set-upstream origin master  // shorter way is git push -u origin master
- For all subsequent pushes use: git push origin 
- IMPORTANT: Make sure my branch git status is up-to=date before pulling master. Do git add . and git commit to ensure my changes are committed before doing the master pull
- git checkout master
- git pull 
- IMPORTANT: Git pull master Before you request a pull request!!!!!!!!!!!!!!!!!!!!!!!
- Then you can switch back to my branch to see what is diff btw my local code and master
- in my branch, git merge master //shows all the diffs with master
- IMPORTANT: Don't code on master branch. Don't code on same file. Tell teammates you're working on a file.
- In morning, switch to master: pull and merge.
- Then switch to my branch, push to github and request pull if ready. 
-
-//If you run into any issues with asking you to login every push, you can use the following commands:
-git --global user.name "pcdavis"
-git --global user.email "pcdavis@travelbrains.com"
-
-
-Instructions when working in a team as a team member not in charge of the master
-git clone masterurl ./
-git checkout -b paulsbranch
-After changes are made:
-git add ./
-git commit -m "message"
-git push -u origin paulsbranch
-create a pull request and send the master owner / mentor the url of the pull request that gets created
-git checkout -b mybranchname  /
-
-git BRANCHES----------------------
-git branch // this will show you all the branches available
-git branch newBranchName // this creates a new branch with the name you provide  IMPORTANT: the head still points to the current branch. You have to change it 
-git checkout branchName // this switches to the branch name
-git checkout -b newBranchTitle // this creates and switches to the new branch at the same time - a little shortcut 
 
 
 CREATE IMPORTANT FOLDERS AND FILES------------------------------------------
@@ -152,7 +97,7 @@ Run multiple queries making sure your tables return exactly what your app needs 
 SET UP SERVER---------
 
 NPM INSTALL---------------------------------------------------------
-run npm install --save express express-static express-session body-parser dotenv cors massive react-router-dom axios react-redux redux redux-promise redux-promise-middleware redux-form react-toastify hash-router browser-router lodash passport passport-auth0 react-tap-event-plugin styled-components gsap interactjs tweenjs npm install @tweenjs/tween.js react-icons enzyme enzyme-adapter-react-16
+run npm install --save express express-static express-session body-parser dotenv cors massive react-router-dom axios react-redux redux redux-promise redux-promise-middleware redux-form react-toastify hash-router browser-router lodash passport passport-auth0 react-tap-event-plugin styled-components gsap interactjs tweenjs npm install @tweenjs/tween.js react-icons enzyme enzyme-adapter-react-16 faker
 
 If it is a socket.io project, npm install --save socket.io socket.io-react and include these dev dependencies: --save-dev babel-cli babel-preset-env babel-preset-stage-0  //Also consider looking at socket.io-redux
 For testing with Cypress npm install --save-dev cypress 
@@ -442,6 +387,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
 -------------------------------------------------------
+
+
 IMPORTANT NOTE ABOUT Index.html - any scripts or links placed here are universally accessible in your react app and therefore don't require import statements in the react js file you are working on.
 Index.html ----- Possible Links to include:
 // Open Sans Font:  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
@@ -452,6 +399,9 @@ font-family: 'Pacifico', cursive;
 font-family: 'Lobster', cursive;
 font-family: 'Passion One', cursive;
 font-family: 'Open Sans', sans-serif; 
+
+// Semantic UI (check cdnjs.com for latest version of link href) 
+<link rel="stylesheet" href ="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
 
 // Bootstrap:  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 

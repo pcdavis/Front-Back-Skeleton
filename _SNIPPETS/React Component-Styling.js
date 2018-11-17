@@ -16,7 +16,7 @@ class Generic extends Component {
               <form style={styles}  > //add styles by passing in a styles object defined above
                 <label htmlFor='name'>Name</label>
                 <input id="name" type='text' />
-                <button style={{border:'2px solid white'}} >Submit</button> 
+                <button style={{border:'2px solid red'}} >Submit</button> 
                 </form>
             </div>
         );

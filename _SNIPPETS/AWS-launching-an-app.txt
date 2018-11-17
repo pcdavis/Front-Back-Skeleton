@@ -1,0 +1,98 @@
+Create a server instance on AWS-------------------------------------------------------
+log into aws
+Go to EC2 section of site
+Click Running Instances
+Top right corner - choose instance location close to you
+Click Launch Instances
+Choose Ubuntu server
+Now you have to choose a scale of server services. If a free version is available select it.
+Click Review and Launch
+Click Launch
+Pop up screen - select existing or create new key pair
+Choose create new key pair
+Enter a simple name for the key (no spaces or special characters) eg. paulsAWSkeys
+Download the key that gets generated (pem file) DONT LOSE IT.
+Click launch server
+Click View Instances
+2 key things to know on the instance dashboard -> 1. public ip address 2. connect button 3. security groups (all the way to the right)
+Now you have to open port 22 in your security group to be able to use putty to communicate with your server through the firewall. To do this, on the dashboard, scroll the top section all the way to the far right where you will find security group and click launch-wizard. At the bottom of the new window, click on the Inbound tab. If port 22 is already added, you're all set. If not, click on edit/add rule and add type = ssh protocol = tcp portrange = 22 
+You now have a server instance ready to use
+-----------------------------------------------------------------------------------------
+
+Now You have to create a ppk file to allow you to access the server using putty-----------------------------------------------------
+Click connect
+Click connect using Putty(a free SSH client for windows that lets windows os access/use the linux os)
+Install Putty
+After, you will have two programs: putty and putty key generator
+We will use putty to get into a linux machine from a windows machine
+Now assemble a few items from your aws instance dashboard: 1. Instance ID 2. Public DNS(ipV4) 3. Locate your .pem key (created in section above) 
+Before we can connect, we have to convert the .pem file to a version that linux can use with the puttygen app. 
+Open the puttygen app (in c:/programs) 
+Choose RSA as type of key
+Then click the load button and navigate to where your .pem file is. 
+IMPORTANT: you have to change the types of files to show to "all file types" to be able to see your .pem file.
+Double click your .pem file, which will convert the .pem file to a .ppk file
+Click Save private key
+Save it to the same folder with same name as .pem file (just don't include .pem extension in the name)
+Now the key is a form that putty can use to communicate with the server
+
+Now you're ready to access the server with putty----------------------------------------------------------
+Open putty
+Select Session
+Copy your public ip address from your aws instance dashboard and paste it into the putty field called Hostname (ip address)
+IMPORTANT: type ubuntu@ in front of the ip address. Example ubuntu@52.207.239.220
+If you run into problems with the public ip address, you can try swapping it with public DNS address (keep ubuntu@)
+Leave it on port 22 - that's the ssh port
+make sure connection type is ssh
+Now, click to expand the Connection section, then expand the SSH section and click on Auth - then click Browse and navigate to your .ppk key and double click on it
+IMPORTANT: To save all of these settings in putty -> Click on the Session section 
+To connect to the server, click Open. NOTE: the first time you connect, you'll get a security warning. Click Yes, and you should not get another one after the first connection. 
+
+Now that you're connected to your server--------------------------------------------------------------------------
+first make sure it's up to date by running 'sudo apt update'
+It will show you what can be updated. You can run 'sudo apt upgrade' all the packages. Click enter or Y to update
+Then run 'sudo apt install apache2 // apache2 is a web server. 'install' installs a package like npm install
+after apache is installed type 'clear' to clear the console
+type 'sudo service apache2 status // to check the status of the server  IMPORTANT only 1 p in apache
+To navigate to your apache2 directory type 'cd /etc/apache2'
+the apache2 web server is a piece of software that does nothing but handle http traffic
+cd into the web server 'cd /etc/apache2' note: apache can host many websites on same server.
+the envvars sets up all the variables for linux to hand to apache
+When you're in etc/apache2, cd into sites-available (cd sites-available) to find the files that tell apache what to do if someone comes knocking on our site via http (default) or https (default-ssl). 
+vi 000-default.conf  -> this will open the default file for web traffic <VirtualHost *:80> 
+Scroll down to find DocumentRoot = var/www/html. The DocumentRoot is what will get served up if anyone knocks on port 80. var/www/html is very important - it's what will get served up.
+:q! to get out of that file
+cd /var/www to check out what's in the default 
+ls -l to see what folders/files are there = you see the html folder
+cd html/ -> to see what's in the html folder
+ls -l -> you see there is an index.html
+sudo service apache2 status -> to see if apache is running in the html folder?
+If you copy and paste your site's ip address into a browser address bar, it should just spin and not connect - that's because the server has a firewall that prevents traffic coming in on port 80. 
+To fix the firewall - go to aws instance dashboard and scroll to right to find security group/launch wizard and open it
+Click Inbound / Add Rule / select http and it will auto fill the rule
+go back to terminal and cd to var/www/html folder. When you're in the folder, type sudo vi index.html -> the sudo is needed to be able to edit the file.
+the index file opens  
+'d 100 d' -> that deletes however many lines of code are in between the d's
+Go into insert mode by hitting 'i'
+type '<h1>Hello</h1>  // this is going to be what appears on your website now
+hit escape to exit insert mode
+hold shift and hit z  twice to exit 
+
+
+Commands:
+ctrl C -> stop operations
+exit -> get out of server and close putty??
+cd /etc/apache2   // to navigate to your apache directory on the web server 
+vi apache2.conf [tab]// takes you to the config file with a lot of info to look At. I think you have to hit tab after for some reason
+:q! // this command will get you out of the config file and bring you back to the terminal window
+vi envvars [tab]// takes you to environmental variables folder
+vi 000-default.conf  -> this will open the default file for web traffic <VirtualHost *:80> - apache listening on port 80 for *anything (note: port 80 is always the http port, port 443 is always the https port, port 22 is the ssh port)
+sudo -> a command that gives you root authority
+
+
+
+
+
+
+
+
