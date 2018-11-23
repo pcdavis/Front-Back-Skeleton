@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react'; //Fragment is a wrapper used in React that will not add any extra html markup when it is converted into the page's html. Otherwise, you have to use a div to hold your component's content
 
+//snippets: rce - creates a component  rconst - creates a constructor with state
 
 class Generic extends Component {
     constructor(props){

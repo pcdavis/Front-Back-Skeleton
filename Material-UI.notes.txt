@@ -1,0 +1,16 @@
+1. Create react app
+2. npm install @material-ui/core @material/ui/icons
+3. in the public/index.html place two links:
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+ Grids:
+two types of Grid components: container or item. Container holds items. Container establishes spacing between items (8, 16, 24, 32 or 40). Item uses breakpoints to say how many of the 12 columns it should take up at different screen sizes ( xs, sm, md, lg, and xl)
+
+ import { Grid, Paper } from '@material-ui/core'
+ <Grid container spacing={8}>
+    <Grid item xs={12}>
+        <Paper>my content</Paper>
+    </Grid>
+ </Grid>
