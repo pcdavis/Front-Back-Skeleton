@@ -3,13 +3,13 @@ Install node from website (exe that installs node and npm)
 npm install -g create-react-app
 npm install -g eslint
 
-SETTING UP A FULL STACK APP THAT INCLUDES: 
-Front End: React, Redux, and Router 
+SETTING UP A FULL STACK APP THAT INCLUDES:
+Front End: React, Redux, and Router
 Server: Express, Massive, Sessions, and Auth0
-Database: Heroku, Postgress 
+Database: Heroku, Postgress
 
 SHORT VERSION OF THE PROCESS:
-1. Start the front-end with create-react-app 
+1. Start the front-end with create-react-app
 2. Enable git
 3. Create a database with Heroku and SQLTabs
 4. Set up an Express server running: Sessions, Auth0, and Passport
@@ -35,7 +35,7 @@ CLONING A PROJECT FROM GITHUB -------------------------------
 2. Click the clone button and paste it into the git clone command. example below:
 3. git clone https://github.com/pcdavis/name-of-cloned-project
 4. cd into project folder and run npm install
-    
+
 
 FRONT-END -------------------------------------
 npx create-react-app app-name // or 'npx create-react-app .'   to create the react app using the folder name and placing all the contents in the folder and not a subfolder. IMPORTANT react app names can not contain capital letters
@@ -60,14 +60,14 @@ Create the following FILES: .env and server/index.js
 
 CREATE HEROKU DATABASE--------------------------
 Here is a step-by-step guide to setting up a postgress database via heroku https://github.com/kendagriff/sql-setup
-After the heroku database is set up, copy the connection string and paste it into the .env file. 
+After the heroku database is set up, copy the connection string and paste it into the .env file.
     CONNECTION_STRING = postgres://rmgcoqnvpxmeop:a74a5b2d4880ab2263debf8769b897618d877ce8bc8f5691c808b89470c36c8f@ec2-54-243-59-122.compute-1.amazonaws.com:5432/d9nf8pqdnfj8qp?ssl=true
 The connection string will be used as an argument by massive middleware to manage the db connection
 IMPORTANT: make sure to add ?ssl=true to the end of the connection string.
 IMPORTANT: Use Excel to plan out the tables you will need.
 
 CREATE TABLES ON HEROKU/POSTGRESS---------------------------------------------------------------------
-IMPORTANT: TAKE TIME TO PLAN OUT TABLES AND USE EXCEL TO SEE WHAT THEY SHOULD LOOK LIKE. 
+IMPORTANT: TAKE TIME TO PLAN OUT TABLES AND USE EXCEL TO SEE WHAT THEY SHOULD LOOK LIKE.
 Go to SQLTabs and paste the heroku uri into the address bar of SQLTabs
 Create the tables you need. Below are examples
 
@@ -100,9 +100,9 @@ NPM INSTALL---------------------------------------------------------
 run npm install --save express express-static express-session body-parser dotenv cors massive react-router-dom axios react-redux redux redux-promise redux-promise-middleware redux-form react-toastify hash-router browser-router lodash passport passport-auth0 react-tap-event-plugin styled-components gsap interactjs tweenjs npm install @tweenjs/tween.js react-icons enzyme enzyme-adapter-react-16 faker
 
 If it is a socket.io project, npm install --save socket.io socket.io-react and include these dev dependencies: --save-dev babel-cli babel-preset-env babel-preset-stage-0  //Also consider looking at socket.io-redux
-For testing with Cypress npm install --save-dev cypress 
+For testing with Cypress npm install --save-dev cypress
 
-If using Material-UI  
+If using Material-UI
 npm install --save material-ui typeface-roboto @material-ui/icons
 
 
@@ -113,7 +113,7 @@ npm install --save material-ui typeface-roboto @material-ui/icons
 
 Absolute Path Option------------------------------------------------
 You can change your import statements from relative to absolute by updating your .env file with the line NODE_PATH=src/
-Now instead of import MyComponent from '../../components/MyCompnent' your paths will all start from src/ so it becomes import MyCompnent from 'compnents/MyCompnent' 
+Now instead of import MyComponent from '../../components/MyCompnent' your paths will all start from src/ so it becomes import MyCompnent from 'compnents/MyCompnent'
 
 
 ---------------Socket.io possible issues -------------------------------------------
@@ -132,17 +132,17 @@ create a .babelrc file and put this in it:
 ---------------AUTH0 SETUP --------------------------------------------------
 1. login to auth0.com and choose an existing client or create a new one
 2. choose the connection type e.g. social
-3. Choose settings 
+3. Choose settings
 4. Enter a callback url - example: http://localhost:3005/auth/callback
 5. Click advanced settings / oAuth and turn off OIDC Conformant
-6. Copy and paste the following things into the .env file 
+6. Copy and paste the following things into the .env file
     DOMAIN = travelbrains.auth0.com
     CLIENTID = QV3sPrX7GUmkHX4jZceYZym37s5nthFg
     CLIENT_SECRET = VHdp_wR9EHOkmpRvRlmElOApnOTvHDKo7OEDppVGaXTjGtXBTewv720EPD0MUah-
     CALLBACK_URL = http://localhost:3005/auth/callback
-    REACT_APP_LOGIN= http://localhost:3005/auth  //IMPORTANT -This url is used by the app's login button. It is the server's auth0 endpoint that kicks off the auth0 verification process. 
+    REACT_APP_LOGIN= http://localhost:3005/auth  //IMPORTANT -This url is used by the app's login button. It is the server's auth0 endpoint that kicks off the auth0 verification process.
 
-IMPORTANT: 
+IMPORTANT:
 The connection string must end with ?ssl=true
 Make sure the port number for all server related things match
 Everything from domain on down is related to Auth0 and can be obtained there
@@ -167,7 +167,7 @@ REACT_APP_LOGIN= http://localhost:3005/auth
 
 SERVER/index.js---------------------------------------------------
 IMPORTANT: The lexical order is important. Sessions must be used before passport.
-IMPORTANT: Any calls to sql files that pass in arguments - the arguments must be placed in [ ] 
+IMPORTANT: Any calls to sql files that pass in arguments - the arguments must be placed in [ ]
             //example: if(req.user){
             const user_id = req.user.user_id;
             db.sq_fetch_stackTitles([user_id])
@@ -179,15 +179,15 @@ const session = require('express-session');
 const passport = require('passport');
 const Autho0Strategy = require('passport-auth0');
 const cors = require('cors');// potentially not necessary
-const massive = require('massive'); 
+const massive = require('massive');
 
 //Import Controllers I created that are used in Endpoints
 // example: const swag_controller = require('./controllers/swag_controller');
 
-const app = express(); 
+const app = express();
 
 app.use(session({
-    secret: process.env.SESSION_SECRET, 
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true
 }))
@@ -198,9 +198,9 @@ massive(process.env.CONNECTION_STRING).then( dbInstance => {
 }).catch(console.log);
 
 app.use(passport.initialize());
-app.use(passport.session()); //I think that this line makes sessions ready to use even before the user tries to login to their account via passport 
+app.use(passport.session()); //I think that this line makes sessions ready to use even before the user tries to login to their account via passport
 
-//below, passport.use() takes 2 arguments: a new Auth0 strategy instantiation and what looks like a callback function that includes the profile object, which contains useful variables 
+//below, passport.use() takes 2 arguments: a new Auth0 strategy instantiation and what looks like a callback function that includes the profile object, which contains useful variables
 passport.use(new Autho0Strategy({
     domain: process.env.DOMAIN,
     clientID: process.env.CLIENTID,
@@ -209,8 +209,8 @@ passport.use(new Autho0Strategy({
     scope: 'openid profile'
 }, function(accessToken, refreshToken, extraParams, profile, done){
     const db = app.get('db');
-    const { sub, name, picture } = profile._json; // sub is the essential authorization id from auth0 that gets returned inside the profile._json object. You can deconstruct many more useful variables if you want and use them to populate the data you keep on your user in your database 
-    
+    const { sub, name, picture } = profile._json; // sub is the essential authorization id from auth0 that gets returned inside the profile._json object. You can deconstruct many more useful variables if you want and use them to populate the data you keep on your user in your database
+
     db.find_user([sub])
     .then( response => {
         if (response.length > 0){
@@ -220,12 +220,12 @@ passport.use(new Autho0Strategy({
             .then( response => { done(null, response[0].id) })
         }
     })
-})); // end of passport.use call. After this completes, passport invokes serializer ONE time. During serializer, session.user is created and session.user.id is set to the id that comes from our database. 
+})); // end of passport.use call. After this completes, passport invokes serializer ONE time. During serializer, session.user is created and session.user.id is set to the id that comes from our database.
 
-passport.serializeUser( (id, done) => { 
+passport.serializeUser( (id, done) => {
 //In the serializer, take the id (which is the user id from our users database) and use it to create session.user object that we will use to store session data as needed. Below are some tests that will log in the server to see if it is working.
     console.log("in the serializeUser here")
-    session.user = { id: id}; 
+    session.user = { id: id};
     const isuser = session.user ? true : false;
     console.log(isuser)
     console.log(session.user)
@@ -234,7 +234,7 @@ passport.serializeUser( (id, done) => {
 
 passport.deserializeUser( (id, done) => {
     const db = app.get('db');
-    
+
     db.find_logged_in_user([id]) //IMPORTANT - ARGUMENTS PASSED TO SQL FILES MUST BE IN BRACKETS
     .then( response => {
         done(null, response[0]);
@@ -243,7 +243,7 @@ passport.deserializeUser( (id, done) => {
 
 //Authentication endpoints for Auth0
 app.get('/auth', passport.authenticate('auth0'));
-app.get('/auth/callback', passport.authenticate('auth0', { 
+app.get('/auth/callback', passport.authenticate('auth0', {
     successRedirect: 'http://localhost:3000/#/private'
 }));
 
@@ -262,14 +262,14 @@ app.get( '/logout', (req,res) => {
 } )
 
 //Endpoints for interacting with the regular pages of the app
-// app.get( '/api/products', controller.getAll ); 
+// app.get( '/api/products', controller.getAll );
 
 //Start server listening
 const port = process.env.SERVER_PORT || 3005
 app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
 
 
-IMPORTANT:  You can use 'next' to chain controller method calls in the endpoints to do multiple tasks: 
+IMPORTANT:  You can use 'next' to chain controller method calls in the endpoints to do multiple tasks:
 app.get('/auth/me', (req,res,next) => {
     if(!req.user){
         res.status(401).send('Sorry, please log in to your account')
@@ -288,11 +288,11 @@ IMPORTANT: Any calls to sql files that pass in arguments - the arguments must be
 
 find_logged_in_user.sql
 SELECT *
-FROM users 
+FROM users
 Where $1 = id;
 
 find_user.sql
-SELECT * FROM users 
+SELECT * FROM users
 WHERE $1 = auth_id
 
 create_users_table.sql
@@ -310,8 +310,8 @@ RETURNING *;
 
 
 CONTROLLERS--------------------------------------------------
-If you have endpoints that require controller callbacks, create a controllers folder inside the server folder 
-Create any controller methods you need and hook them up to the server endoints on the server index file. 
+If you have endpoints that require controller callbacks, create a controllers folder inside the server folder
+Create any controller methods you need and hook them up to the server endoints on the server index file.
 IMPORTANT: Any calls to sql files that pass in arguments - the arguments must be placed in [ ]
 Example controller method:
 
@@ -321,7 +321,7 @@ getAll: (req,res,next) => {
         dbInstance.select_all()
         .then( products => {
             res.status(200).send( products )
-        }) 
+        })
         .catch( err => {res.status(500).send('error with select_all') })
     }
 
@@ -346,8 +346,9 @@ Update package.json with:
  "proxy": "http://localhost:3005"
 
  ---------------START SERVER IN TERMINAL -----------------------
---TIP!!!!!!!!!!! when you run nodemon use 'nodemon --watch server'  
--------- run nodemon to see if server says 'listening'-------------
+nodemon --watch server
+
+
 
 
 
@@ -366,17 +367,17 @@ here are the steps to reproduce a fruitful implementation of MDBReact package in
 Here is the npm install for moodit project: npm install git+https://oauth2:_pVxZhoMMfCBzagVretj@git.mdbootstrap.com/mdb/react/re-pro.git
 4. Please then follow the instructions here, starting from point 4.: https://mdbootstrap.com/react/react-bootstrap-getting-started/
 
-To get some MDB components to work, I had to use the downloaded zip file and copy and paste all of their components into my components folder 
+To get some MDB components to work, I had to use the downloaded zip file and copy and paste all of their components into my components folder
 
-If you are sharing project you can use 1 token inside the package.json . If your coellagues would like to use it in other projects they can generate token same way you did it (make sure to check api), and then use the link from the previous email but replace the token with the one generated before. 
+If you are sharing project you can use 1 token inside the package.json . If your coellagues would like to use it in other projects they can generate token same way you did it (make sure to check api), and then use the link from the previous email but replace the token with the one generated before.
 
-If creating from scratch: 
+If creating from scratch:
 -Copy and paste the contents of the _TEMPLATES\React-Bootstrap-with-Material-Design-4.1.0 into a new project folder and run npm install  npm start
 - npm install cors dotenv body-parser express massive axios
 -node server/index.js // this will start your server because MDB creates it's own main folder.
 
 If you have existing project. Add the following to your react project:
-npm install --save font-awesome@4.7.0 bootstrap@4.0.0 react-error-overlay@4.0.0 
+npm install --save font-awesome@4.7.0 bootstrap@4.0.0 react-error-overlay@4.0.0
 
 Add the following dependency to your package.json file:
 "mdbreact": "git+https://github.com/mdbootstrap/React-Bootstrap-with-Material-Design.git"
@@ -398,9 +399,9 @@ font-family: 'Roboto Slab', serif;
 font-family: 'Pacifico', cursive;
 font-family: 'Lobster', cursive;
 font-family: 'Passion One', cursive;
-font-family: 'Open Sans', sans-serif; 
+font-family: 'Open Sans', sans-serif;
 
-// Semantic UI (check cdnjs.com for latest version of link href) 
+// Semantic UI (check cdnjs.com for latest version of link href)
 <link rel="stylesheet" href ="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
 
 // Bootstrap:  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -417,19 +418,19 @@ Here are key Bootstrap classes to use:
  <li className="list-group-item">{this.props.propname}</li>
  </ul>
 className="btn btn-danger pull-xs-right" // this will pull a button to the far right on the page
-className="btn btn-primary" 
+className="btn btn-primary"
 
 CSS RESET----------------------------------------
-Open the index.css file and paste the code from css-reset.css 
+Open the index.css file and paste the code from css-reset.css
 In index.js make sure to include: import './css-reset.css'
 
 
 
 Styled-Components-------------------------------------------
-Basic concept: Use the styled-component library syntax to create React components 
+Basic concept: Use the styled-component library syntax to create React components
 Place all your css between the back ticks (js string interpolation)
 Use ${ } to insert any code logic you want to determine which css props to display
-Chain attributes like styled.PasswordInput.attr({ type: 'password'}) 
+Chain attributes like styled.PasswordInput.attr({ type: 'password'})
 
 Exammple----------------
 import styled, { css } from 'styled-components'
@@ -452,9 +453,9 @@ export default Button;
 
 
 npm install --save styled-components // not necessary if using react-boilerplate
-in your react component: import the styled components that you create and want to use inside your React component. Also import ThemeProvider if you use that from styled-components. 
+in your react component: import the styled components that you create and want to use inside your React component. Also import ThemeProvider if you use that from styled-components.
 
-example: import Button from './styled_components/Button.js'    
+example: import Button from './styled_components/Button.js'
 example: import { ThemeProvider } from 'styled-components';
 
 Your styled components that you create are functional components that rely on the 'styled-component' npm package to create. IMPORTANT: Use back-tics. Here's an example of a styled component file I titled Button.js:
@@ -470,7 +471,7 @@ text-align: center;
 text-decoration: none;
 display: inline-block;
 font-size: 16px;
-`; 
+`;
 
 IMPORTANT: Media queries are placed inside the styled element. Example:
 const AppWrapper = styled.div`
@@ -492,7 +493,7 @@ IMPORTANT: The following is based on DevMountain auth-lecture-2 from feb 8. The 
 4. Convert dumb components into smart components
 
 Build the reducer.js -------------------------------
-IMPORTANT: Reducers that use promise middleware have to concat '_FULFILLED' onto case titles in order to work.  Look at Node Middleware Shopping Cart and Feb 8 auth-lecture-2 excersizes for examples of reducers with promise middleware 
+IMPORTANT: Reducers that use promise middleware have to concat '_FULFILLED' onto case titles in order to work.  Look at Node Middleware Shopping Cart and Feb 8 auth-lecture-2 excersizes for examples of reducers with promise middleware
 import axios from 'axios';
 Declare action creator CONST
 Declare the initalState
@@ -514,7 +515,7 @@ export default function( state = initialState, action ) {
 
     case GET_SWAG + '_FULFILLED':
       return Object.assign({}, state, { swag: payload });
-    
+
     case GET_SWAG + '_REJECTED':
       return Object.assign({}, state, { swag: [] });
 
@@ -545,20 +546,20 @@ function mapStateToProps(state){
         userData: state.user
     }
 }
- 
+
 export default connect(mapStateToProps, { actionCreator } )(ComponentName);
 
 Decide if you need to use componentDidMount to make a call to one of your actioncreators with this.props.actionCreator1();
 Consider using if statement in case response gets to component after rendering -> Type error
 
-Inside the render method deconstruct what you need from state and create any functions you need to map over data to render as elements in the return statement. 
+Inside the render method deconstruct what you need from state and create any functions you need to map over data to render as elements in the return statement.
 Example: let { userData } = this.props;
 
 IMPORTANT: The Login button must be wrapped in an a tag with href pointing to the action creator that will make the call to the server. Here's an example:
 <a href={ process.env.REACT_APP_LOGIN }><button>Login</button></a> // In this example, we used the env file to ensure the endpoint remains hidden.
 
 
-ROUTING 
+ROUTING
 IMPORTANT: If using HashRouter, be sure to use # sign when redirecting. Consider using BrowserRouter
 
 Create routes.js in src folder----------------------
@@ -576,7 +577,7 @@ export default(
  )
    IMPORTANT: Place routes inside a switch in order of most specific to least and use exact path when needed
  ---------------------------
-APP.JS 
+APP.JS
 Place routes.js in the App.js component like so:
 
 import { Link } from 'react-router-dom' // if you place any Links in the component
@@ -605,7 +606,7 @@ ReactDOM.render(
     <Provider store={ store }>
       <App />
     </Provider>
-  </BrowserRouter>, 
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
@@ -621,10 +622,10 @@ GOING LIVE WITH PRODUCTION SITE ON DIGITAL OCEAN
 
 
 Once your app is hosted, use gitbash in codevs to update and run it with:
-ssh root@your.ip.address // in my case it is ssh root@138.197.217.24 // his connects to your server. 
-Then do git pull to bring in the latest github commits 
+ssh root@your.ip.address // in my case it is ssh root@138.197.217.24 // his connects to your server.
+Then do git pull to bring in the latest github commits
 If you added new npm modules, run npm install before run build
-Then npm run build // this creates the static version of the site 
+Then npm run build // this creates the static version of the site
 node server/index.js // this starts up the server and it should be ready to view on the web
 
 Setting up an app on digitalocean
@@ -634,16 +635,16 @@ Here are the steps https://github.com/DevMountain/Hosting-Digital-Ocean
 SSH keys
 I already created the keys. To see them, do the following:
 Go to root folder in laptop by typing cd ~ in gitbash
-ls -a 
+ls -a
 Cd .ssh
 Ls
 To copy the keys, type:  code id_rsa for the private key and code id_rsa.pub for the public key
 
 Once your app is hosted, open gitbash and type:
-ssh root@your.ip.address // in my case it is ssh root@138.197.217.24 // his connects to your server. 
-Then do git pull to bring in the latest github commits 
+ssh root@your.ip.address // in my case it is ssh root@138.197.217.24 // his connects to your server.
+Then do git pull to bring in the latest github commits
 If you added new npm modules, run npm install before run build
-Then npm run build // this creates the static version of the site 
+Then npm run build // this creates the static version of the site
 node server/index.js // this starts up the server and it should be ready to view on the web
 
 
@@ -656,7 +657,7 @@ EXTRAS
 ------------------------------------------
 
 REDUX FORM ------------------------------------
-npm install --save redux-form 
+npm install --save redux-form
 IMPORTANT: If you use a Redux form, you will need to use  { combineReducers } from 'redux' because you will have to combine the form's reducer with your other reducers. One strategy is to create an index reducer file where you combine the reducers, here's an example:
 import { combineReducers } from 'redux';
 import PostsReducer from './reducer_posts'
@@ -766,17 +767,17 @@ right before end of body:
 COMPONENTS FOLDER
 Create a GenericReduxComponent.js  copy and paste skeleton's generic state action component into it to use for testing
 
-On App.js add a button. onClick update path to /test  
+On App.js add a button. onClick update path to /test
 In routes.js create Route to /test and component= GenericReduxComponent
-In GenericReduxComponent do componentDidMount and make call to server endpoint that is already working from above. 
+In GenericReduxComponent do componentDidMount and make call to server endpoint that is already working from above.
 In reducer create action item and string const to allow the step above to happen
 Update something in the state with results
-Back in GenericReduxComponent, use map to show someting on page. 
-This is the full path working. 
+Back in GenericReduxComponent, use map to show someting on page.
+This is the full path working.
 Now work on a button that will store something in session on server
-onClick will add something to cart in the session.user.cart array object that was created above. 
-In the reducer, create the action creator that will post to the server with something captured from state in the component (e.g. a product object from test4 table). 
-On server - in the middlewares folder create a module called session_manager.js with a method called add_to_cart  
+onClick will add something to cart in the session.user.cart array object that was created above.
+In the reducer, create the action creator that will post to the server with something captured from state in the component (e.g. a product object from test4 table).
+On server - in the middlewares folder create a module called session_manager.js with a method called add_to_cart
 In add_to_cart take the req.body and push it onto req.session.user.cart array.
 At the end of the method call next()
 Place the add_to_cart method in endpoint on the server index file, right before the controller that will handle what happens after next is triggered
@@ -785,26 +786,26 @@ Place the add_to_cart method in endpoint on the server index file, right before 
 
 
 ///////SETUP REDUX///////////////////
-If using Redux, add these installs:  npm install --save redux react-redux 
-Look at skeleton's zample-index.js for how to set up a router and provider to encapsulate the App component. 
+If using Redux, add these installs:  npm install --save redux react-redux
+Look at skeleton's zample-index.js for how to set up a router and provider to encapsulate the App component.
 
 App.js is going to be the primary compoent that provides the basic html structure of the home page and contains the {routes}, which holds ALL the routes used to determine what gets displayed in the main body of the App component.  IMPORTANT - I place index.js in the root and App.js in the Components folder because it's a goddamned component afterall.
 
 "It matters not how straight the gate, how charged with punishment the scroll"
 
-Create ducks folder in src 
+Create ducks folder in src
 Inside ducks create your reducer.js file // you can call it something besides reducer, but it needs to be a reducer. This is where shit gets real. We'll offer details below.
 
 Create store.js in the src folder. Store is skin and bones. Look at zample-store.js for example
 
 In each component you create, you need to follow the pattern seen zample-component-state-andactions.js. The basic idea is this:
 1. import your action creators by deconstructing them from the reducer.js .  NOTE: these are functions you're importing into this component. They will go into the Redux connect function and come out the other end as props that you'll use in the rest of the component. When you do use them, you can keep calling them with this.props.actionCreatorName, or you can do what everyone else does and deconstruct them with {actionCreator1, actionCreator2} = this.props. Now you can use them by just saying their damn names without all the this.props.
-2. Go to the bottom of the componet - below the closing curly brace for the component class. Here's where you will set up the machinery of Redux. 
-3. I'm going to show you the long way of coding it because I'm slow on the uptake. The key to understanding what follows is this. Redux connect is a method that makes all the magic happen. It requires 2 arguments: a state object and an action object. 
+2. Go to the bottom of the componet - below the closing curly brace for the component class. Here's where you will set up the machinery of Redux.
+3. I'm going to show you the long way of coding it because I'm slow on the uptake. The key to understanding what follows is this. Redux connect is a method that makes all the magic happen. It requires 2 arguments: a state object and an action object.
 4. Let's create the action object, using the action creators from the reducer that we imported earlier
 let mapDispatchToProps = {
     getSwag: getSwag,
-    actionCreator1: actionCreator1, 
+    actionCreator1: actionCreator1,
     actionCreator2: actionCreator2
     }
 5. Now we need a state object.  I'm not 100% sure of how this works, but here's how it looks:
@@ -815,7 +816,7 @@ Basically it is a function that receives the Redux/reducer's State object and yo
 
 6. let insAndOuts = connect(mapStateToProps, mapDispatchToProps); // when connect is invoked, it takes state and actions and makes them available to subscribe or do actions in the component.
 
-7. export default insAndOuts(ComponentName); // this is the final call that makes it work 
+7. export default insAndOuts(ComponentName); // this is the final call that makes it work
 
 The shorthand way of dong steps 4-7 is:   export default connect (mapStateToProps, mapDispatchToProps)(GenericComponent)
 
@@ -825,14 +826,14 @@ Right after you declare class CompoentName extends Component - use componentDidM
 
 1. Launch componentDidMount() and deconstruct the action creator from this.props (see above) that you're going to use to make a call to server for all kinds of shit to populate your page. Once, it's deconstucted, call it. In the skeleton, it looks like this:
 componentDidMount() {
-    const { getSwag } = this.props; 
+    const { getSwag } = this.props;
     getSwag(); //This goes to reducer and makes call to server/database to get swag/items to display. We'll look at the reducer in a bit.
     "I am the master of my fate, I am the captain of my soul."
   }
 The swag() call to the reducer is going to fill the reducer's state with an array of item that your componet can use to populate the page -IF YOUR COMPONENT IS SUBSCRIBING TO THE REDUCER'S STATE. Here's how that happens:
 2. In the render() function:
     deconstruct all teh action creators and states from this.props// you have to do this again becasue now you are in the scope of render I think
-3. Now that you have access to all the states and actions, map all the objects that are being held in state by the componentDidMount call earlier. It should look something like this: 
+3. Now that you have access to all the states and actions, map all the objects that are being held in state by the componentDidMount call earlier. It should look something like this:
 const swagComponents = swag.map( swag => (
         <Swag key={ swag.id } title={ swag.title } price={ swag.price } id={ swag.id } />
       ));
@@ -852,7 +853,7 @@ This is going to take the array of swag items in the state.swag property and put
 Look at zample-reducer.js for now. I'll try to update this soon. Too frigg'n tired.
 
 -------------------Toast Instructions-------------------------------
-npm install react-toastify   //if something isn't working try installing react-notify-toast 
+npm install react-toastify   //if something isn't working try installing react-notify-toast
 import { ToastContainer, toast } from 'react-toastify'; --- import to any file that uses toast.
 Place <ToastContainer /> component in the React Component's return statement, right after the first opening div.
 call toast.success("Anything you want to say in the green success flag") or call
@@ -868,8 +869,8 @@ axios.get('http://joes-autos.herokuapp.com/api/vehicles').then( (results)=> {
 1. setup front end redux - imports, provider, reducer, action creator,, smart components
 2. set up server with test data to do a quick test wtih  res.status(200).send(data)
 
-SERVER 
-dotenv 
+SERVER
+dotenv
 create a SERVER_PORT=3001 variable
 
 index
@@ -879,7 +880,7 @@ const bodyparser
 import dotenv.config
 const { SERVER_PORT } = process.env
 app = express()
-start listening 
+start listening
 middlewares:
 app use bodyparserapp
 app use massive
@@ -903,7 +904,7 @@ Do componentDidMount(){
 The rest of this represents early attempts to codify this process. Some of it might be usefu
 
 ///// Below are general instructions for setting up the server index.js file //////////////////////////
-Create server's index.js file in server folder - import statements, app=express high-level middleware with app.use bodyparser, session, express.static, createInitalSession and other middleware 
+Create server's index.js file in server folder - import statements, app=express high-level middleware with app.use bodyparser, session, express.static, createInitalSession and other middleware
 go to heroku and get database uri add ?ssl=true
 create .env file in root and put the following inside:
     CONNECTION_STRING = heroku...URI..?ssl=true  // remember ?ssle=true
@@ -911,7 +912,7 @@ create .env file in root and put the following inside:
     SESSION_SECRET=nameOfSecret // this is for session
 Create .gitignore file // add node_modules  and .env
 place a link to a cnd version of a bootstrap stylesheet in index.html //here's where to get the link: https://getbootstrap.com/docs/3.3/getting-started/
-run a quick test of server with test endpoint: 
+run a quick test of server with test endpoint:
 app.get('/test', (req,res) => { res.status(200).send("yea it works")})
 use Postman to test the endpoint using the correct port
 
@@ -934,13 +935,13 @@ const port = process.env.PORT || 3000;
 app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
 
 ---------------START SERVER IN TERMINAL -----------------------
---TIP!!!!!!!!!!! when you run nodemon use 'nodemon --watch server'  
+--TIP!!!!!!!!!!! when you run nodemon use 'nodemon --watch server'
 -------- run nodemon to see if server says 'listening'-------------
 
 CREATE A TABLE ON HEROKU /////////////////////
 go to SQL Tabs and paste the heroku uri that you used in the .env file into the address bar in sql Tabs
-create a table with:  
-CREATE TABLE titleoftable ( 
+create a table with:
+CREATE TABLE titleoftable (
     product_id SERIAL PRIMARY KEY NOT NULL,
     name varchar(40) NOT NULL,
     description varchar(80) NOT NULL,
@@ -956,21 +957,21 @@ Add some sample data to the database. Be sure to use single quotes when adding o
 CREATE DB AND SQL SCRIPTS///////////////////////////////
 Create a folder called db in the root of the whole project. NOT inside the root of the server folder
 Create files inside that folder for each SQL query you need for CRUD
-C///////create.sql 
+C///////create.sql
 insert into products
 ( name, description, price, image_url)
 values
 ( $1, $2, $3, $4 );
-R///////read.sql 
+R///////read.sql
 select * from products;
 
-U///////update.sql 
-UPDATE products 
-SET description = $2 
+U///////update.sql
+UPDATE products
+SET description = $2
 WHERE product_id = $1;
 
-D///////delete.sql 
-DELETE FROM products 
+D///////delete.sql
+DELETE FROM products
 WHERE product_id = $1;
 
 CREATE ENPOINTS AND CONTROLLER CALLBACKS ///////////////////////////////////////
@@ -994,7 +995,7 @@ module.exports = {
         dbInstance.read_SQL-filename-found-in-dbFolder()
         .then( products => {
             res.status(200).send( products )
-            console.log("getAll worked") }) 
+            console.log("getAll worked") })
         .catch( err => {res.status(500).send('error with getAll') })
     },
     update: (req,res,next) => {
@@ -1017,7 +1018,7 @@ module.exports = {
 
 
 RUN TESTS ////////////////////////////////////////////////
-Run tests on all four CRUD methods using fake data as needed to make sure the system works 
+Run tests on all four CRUD methods using fake data as needed to make sure the system works
 Here is an example of fake data for a the controller read method:
 create: (req,res,next) => {
         const dbInstance = req.app.get('db');
@@ -1039,7 +1040,7 @@ SETUP //////////////////////////////
 ----------------------------------------------------------------------------------------------------
 // NPM INSTALL --  ALL THE KEY FILES ---------------------------------------------------------
 npm init -y  // This creates the package.json file
-I'm going to list below all the npm packages I typically consider for full stack apps. Some are redundant. Look over them and use what you need for your project. 
+I'm going to list below all the npm packages I typically consider for full stack apps. Some are redundant. Look over them and use what you need for your project.
 run npm install --save express express-static express-session body-parser dotenv cors massive react-router-dom axios react-redux redux redux-promise redux-promise-middleware redux-form react-toastify hash-router browser-router underscore passport passport-auth0
 
 On every js file that uses it, you must use let _ = require ('underscore');
@@ -1078,17 +1079,17 @@ getAll: (req,res,next) => {
             res.status(200).send( products )
             console.log("getAll worked")
             console.log(products)
-        }) 
+        })
         .catch( err => {res.status(500).send('error with select_all') })
     }
 3. In the controller, take note of the sql script that gets called.
-4. Open the db folder and find or create the sql script named in the controller. Make sure the script returns all items: SELECT * FROM test4 - the exact same test you just did successfully from SQLTabs 
+4. Open the db folder and find or create the sql script named in the controller. Make sure the script returns all items: SELECT * FROM test4 - the exact same test you just did successfully from SQLTabs
 5. Open Postman, open a new tab; choose GET as the call; enter your endpoint in the url field (e.g. http://localhost:3005/api/products). This MUST match the PORT and the ENDPOINT of your server index file. Click enter
 You should see the products returned in Postman and see a console log in the VSCode terminal
 
 Assuming that worked, now create a new table for users and added 1 new user. We will use this table and user to validate users and keep track for their sessions:
 Paste the scripts below into the SQLTabs tab. Run the three sql scripts ONE AT A TIME. Comment out the ones you are not using each time.
-CREATE TABLE users1 ( 
+CREATE TABLE users1 (
     user_id INTEGER PRIMARY KEY NOT NULL,
     username varchar(40) NOT NULL,
     password varchar(80) NOT NULL
@@ -1105,7 +1106,7 @@ FROM users1;
 Now that you have a users table and 1 user, we need to connect the server to it. We'll do LOGIN first
 1. In the server index, uncomment or create endpoints for LOGIN and use or create a js module called auth_controller.js to hold the controller functions.
 2. Import or uncomment the import statement in server index for the auth_controller
-3. In the controller folder, create or uncomment the auth_controller method: login 
+3. In the controller folder, create or uncomment the auth_controller method: login
 4. Look at the skeleton's login function. take note of the dbInstance sql script call, we'll head there next
 5. In db folder, create or uncomment the sql script login_user.sql. It should look like this:
 SELECT *
@@ -1118,7 +1119,7 @@ IMPORTANT: this is json. You must user double quotes on both keys and values
     "username": "pcdavis",
     "password": "blue"
 }
-7. Hit Enter - that should hit the login endpoint, go to the controller, pass it to sql login_user.sql and respond with a user that matches those credentials if he exists. If he does, .then( ) will fire with your console logs to see that it worked. 
+7. Hit Enter - that should hit the login endpoint, go to the controller, pass it to sql login_user.sql and respond with a user that matches those credentials if he exists. If he does, .then( ) will fire with your console logs to see that it worked.
 
 
 
