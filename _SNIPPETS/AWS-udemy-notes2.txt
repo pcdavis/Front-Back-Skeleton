@@ -1,0 +1,22 @@
+Udemy course: build a serverless app with aws
+
+To create a static site:
+1. Open S3 and create a new bucket
+2. The bucket contents (our website) is private by default. We need to make it public so browsers can access it. To do that, open the bucket and navigate to Permissions/Bucket Policy and paste the json code below (make sure to replace 'mybucketname' with the name of your bucket)
+
+{
+    "Version": "2012-10-17",
+    "Id": "Policy1497053408897",
+    "Statement": [
+        {
+            "Sid": "Stmt1497053406813",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::mybucketname/*"
+        }
+    ]
+}
+
+Now the bucket will be public and accessible in the browser.
+

@@ -3,11 +3,11 @@ git commands---------------
 git commit -am "commit message" // this is a shortcut to do add and commit at same time
 cat .git/HEAD // this will show you where the git head is pointing to
 git log --oneline  // this will show you the log of commits  IMPORTANT press q to exit the log command
-git diff branchName..otherBranchName  // this compares the branches 
+git diff branchName..otherBranchName  // this compares the branches
 git branch --merged  // this will tell you which branches are 100% included/contained in your current working branch. If a branch is contained, you can delete it and know that you still have all of the deleted branch's code in your current working branch
 git branch --move currentBranchName newBranchName  // this allows you to change the branch name. shortcut is git -m name newBranchName
 git branch -d branchName // this deletes the branch (must be on a different branch to delete another branch)
-git remote // shows all the remotes 
+git remote // shows all the remotes
 git remote add origin url // this will tell git to create a remote repo and point to the url as the location of the repo. The word 'origin' is not maditory (it's convention to call your primary repo origin) You can have multiple remote repos, but must be named differently.
 git remote rm origin // this will allow you to remove the remote repo from git. You can add it back again with git remote add origin url like before
 cat .git/config  // this will show you your git config file with info like where your remote repo url is
@@ -16,22 +16,23 @@ cat .git/config  // this will show you your git config file with info like where
 git SETUP-----------------
 Open gitbash terminal in root of project on computer
 run git init
-Go to github and create a repo 
+Go to github and create a repo
 In gitbash run:
- git add .  
+ git add .
  git commit -m "Out of the night that covers me, black as the pit from pole to pole. I thank whatever gods may be, for my unconquerable soul."
- git remote add origin https://github.com/pcdavis/url-of-remote-repository -- USE THE CORRECT URL FOR YOUR repo // The word 'origin' is a name you create to identify the remote location. YOu can call it something ele. 
+ git remote add origin https://github.com/pcdavis/url-of-remote-repository -- USE THE CORRECT URL FOR YOUR repo // The word 'origin' is a name you create to identify the remote location. YOu can call it something ele.
  For your first push to github you use: git push --set-upstream origin master  // shorter way is git push -u origin master
- For all subsequent pushes use: git push origin 
+ For all subsequent pushes use: git push origin
  IMPORTANT: Make sure my branch git status is up-to=date before pulling master. Do git add . and git commit to ensure my changes are committed before doing the master pull
  git checkout master
- git pull 
+ git pull
  IMPORTANT: Git pull master Before you request a pull request!!!!!!!!!!!!!!!!!!!!!!!
  Then you can switch back to my branch to see what is diff btw my local code and master
  in my branch, git merge master //shows all the diffs with master
  IMPORTANT: Don't code on master branch. Don't code on same file. Tell teammates you're working on a file.
  In morning, switch to master: pull and merge.
- Then switch to my branch, push to github and request pull if ready. 
+ Then switch to my branch, push to github and request pull if ready.
+
 
 //If you run into any issues with asking you to login every push, you can use the following commands:
 git --global user.name "pcdavis"
@@ -50,6 +51,11 @@ git checkout -b mybranchname  /
 
 git BRANCHES----------------------
 git branch // this will show you all the branches available
-git branch newBranchName // this creates a new branch with the name you provide  IMPORTANT: the head still points to the current branch. You have to change it 
+git branch newBranchName // this creates a new branch with the name you provide  IMPORTANT: the head still points to the current branch. You have to change it
 git checkout branchName // this switches to the branch name
-git checkout -b newBranchTitle // this creates and switches to the new branch at the same time - a little shortcut 
+git checkout -b newBranchTitle // this creates and switches to the new branch at the same time - a little shortcut
+
+git Remove-----------------------
+git rm <filename> --cached // this removes the file from github but not from your local computer. Do this if your .env file is on github and you need to get it off there.
+example: git rm .env --cached
+
