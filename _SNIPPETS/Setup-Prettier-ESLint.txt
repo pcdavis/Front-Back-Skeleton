@@ -1,0 +1,16 @@
+Based on the Medium article found at: https://travishorn.com/setting-up-prettier-on-vs-code-1fd5e5a43523
+
+CD into the root of your direectory and run:
+npm i -D prettier eslint eslint eslint-config-prettier eslint-plugin-prettier
+
+Now create .eslintrc.js with the following contents:
+
+module.exports = {
+  "extends": "plugin:prettier/recommended"
+};
+
+Prettier and ESLint are now installed and configured. Now we need to get it working in VS Code.
+Install 2 extensions: ESLint  and Prettier Code Formatter
+
+To automatically fix the problems it finds, press Shift+Alt+F. You can also set 
+editor.formatOnSave to true in your user or workspace settings to format your code automatically every time you save.

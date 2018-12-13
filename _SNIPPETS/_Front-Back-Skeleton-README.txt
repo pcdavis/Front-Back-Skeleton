@@ -99,6 +99,8 @@ SET UP SERVER---------
 NPM INSTALL---------------------------------------------------------
 run npm install --save express express-static express-session body-parser dotenv cors massive react-router-dom axios react-redux redux redux-promise redux-promise-middleware redux-form react-toastify hash-router browser-router lodash passport passport-auth0 react-tap-event-plugin styled-components gsap interactjs tweenjs npm install @tweenjs/tween.js react-icons enzyme enzyme-adapter-react-16 faker
 
+if graphql project npm install graphql graphql-express express  
+
 If it is a socket.io project, npm install --save socket.io socket.io-react and include these dev dependencies: --save-dev babel-cli babel-preset-env babel-preset-stage-0  //Also consider looking at socket.io-redux
 For testing with Cypress npm install --save-dev cypress
 

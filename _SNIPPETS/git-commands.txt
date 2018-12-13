@@ -1,4 +1,9 @@
 Git--------------------------------------------
+
+Use these 2 commmands whenever you start working on project.
+git remote update
+git status -uno
+
 git commands---------------
 git commit -am "commit message" // this is a shortcut to do add and commit at same time
 cat .git/HEAD // this will show you where the git head is pointing to
