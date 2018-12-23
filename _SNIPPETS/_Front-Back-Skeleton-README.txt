@@ -107,7 +107,6 @@ For testing with Cypress npm install --save-dev cypress
 If using Material-UI
 npm install --save material-ui typeface-roboto @material-ui/icons
 
-
 // Also place this link in the index.css file for your app: <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 

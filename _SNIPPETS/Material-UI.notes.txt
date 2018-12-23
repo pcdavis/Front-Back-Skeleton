@@ -14,3 +14,8 @@ two types of Grid components: container or item. Container holds items. Containe
         <Paper>my content</Paper>
     </Grid>
  </Grid>
+
+If using date pickers
+npm i date-fns@2.0.0-alpha.21 @date-io/date-fns // alpha version 2 required at the moment  date-fns is a 'lodash' for working with time and dates in js
+npm i -s material-ui-pickers 
+Check resources at https://material-ui-pickers.firebaseapp.com
