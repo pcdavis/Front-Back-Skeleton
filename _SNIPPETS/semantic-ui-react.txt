@@ -1,0 +1,9 @@
+Add to public/index.html:
+ <link
+  rel="stylesheet"
+  href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
+/> 
+
+npm install semantic-ui-react
+
+Add css styling in the index.css file that gets imported into index.js in the src folder

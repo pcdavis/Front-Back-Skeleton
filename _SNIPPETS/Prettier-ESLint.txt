@@ -3,7 +3,7 @@ Based on the Medium article found at: https://travishorn.com/setting-up-prettier
 CD into the root of your direectory and run:
 npm i -D prettier eslint eslint eslint-config-prettier eslint-plugin-prettier
 
-Now create .eslintrc.js with the following contents:
+Now create .eslintrc with the following contents:
 
 module.exports = {
   "extends": "plugin:prettier/recommended"
