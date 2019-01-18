@@ -1,4 +1,12 @@
 
+// Use && to check if some value is true before rendering what comes after the &&
+<List horizontal>
+          {event.attendees && event.attendees.map( (eachAttendee) => (
+              <EventListAttendee key = {eachAttendee.id} attendee = {eachAttendee} />
+          ))}
+</List>
+
+
 //Use if / else logic in the render method to determine what gets returned
 //An if/else block is the easiest way to solve the problem, but not a good implementation.It works great for simple use cases
 class App extends React.Component {

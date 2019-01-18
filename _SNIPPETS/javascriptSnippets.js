@@ -104,6 +104,28 @@ onChange={this.handleChange} />
 
 // The key to using one handler is to use the brackets around [name] to set the state object's key value. The brackets are needed because that is a javascript way to dynamically set an object's key values. You can't just pass the variable name. It must be placed in brackets.
 
+// How to update state if updating properties of an object - example: a form with many fields is updating an object with properties associated with each input field. Below is a state that contains an event object. Each event property is updated by an input field on the form.
+state = {
+  event: {
+    title: '',
+    date: '',
+    city: '',
+    venue: '',
+    hostedBy: ''
+  }
+
+onInputChange = (e) => {
+  console.table(this.state.event)
+  const newEvent = this.state.event; // In order to set the state of an object with multiple changing field values, you have to first capture all the current object property values in a new object, then update the specific property with the event name and value and then completely replace the object that is stored in the state object. 
+  newEvent[e.target.name] = e.target.value;
+  this.setState({
+    event: newEvent
+  })
+}
+
+
+
+
 //Trick to solve Type is undefined error//
 //This  it may be because the computer attempts to render some item that is waiting on an api call or a callback. Use this code to prevent it:
 if(!data){

@@ -3,6 +3,8 @@ Git--------------------------------------------
 Use these 2 commmands whenever you start working on project.
 git remote update
 git status -uno
+//If your local copy is ahead of remote you can push to remote or you can overwrite your local copy by doing a checkout of the remote
+git checkout -- <file>... //to discard changes in working directory
 
 git commands---------------
 git commit -am "commit message" // this is a shortcut to do add and commit at same time
@@ -14,6 +16,7 @@ git branch --move currentBranchName newBranchName  // this allows you to change 
 git branch -d branchName // this deletes the branch (must be on a different branch to delete another branch)
 git remote // shows all the remotes 
 git remote add origin url // this will tell git to create a remote repo and point to the url as the location of the repo. The word 'origin' is not maditory (it's convention to call your primary repo origin) You can have multiple remote repos, but must be named differently.
+git push --set-upstream origin master // To push the current branch and set the remote as upstream. note - 'origin' is typically the name given to the primary remote located on github. By adding 'master' at the end, you tell git = Branch 'master' set up to track remote branch 'master' from 'origin'
 git remote rm origin // this will allow you to remove the remote repo from git. You can add it back again with git remote add origin url like before
 cat .git/config  // this will show you your git config file with info like where your remote repo url is
 
