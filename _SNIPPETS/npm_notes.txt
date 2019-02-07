@@ -1,0 +1,4 @@
+
+How to install an older version of an npm package
+npm view react-redux versions   // This will pull up a list of all versions of the npm package
+npm install react-redux@5.1.1   // This allows you to install a specific package version
