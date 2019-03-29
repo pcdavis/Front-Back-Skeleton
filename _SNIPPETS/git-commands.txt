@@ -3,6 +3,7 @@ https://git-scm.com/docs  //good resource for git commands
 https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf //cheatsheet
 
 Use these commmands whenever you start working on project.
+git remote -v         //This will show you the url of the remote
 git remote update     // this will check the remote version of the branch you are on to see if anything is newer on the remote version
 git status -uno       //this will tell you if your local copy is ahead or behind the remote copy
                       //If your local copy is ahead of remote you can push to remote or you can overwrite your local copy by doing a checkout of the remote
@@ -24,6 +25,11 @@ git remote add origin url // this will tell git to create a remote repo and poin
 git push --set-upstream origin master // To push the current branch and set the remote as upstream. note - 'origin' is typically the name given to the primary remote located on github. By adding 'master' at the end, you tell git = Branch 'master' set up to track remote branch 'master' from 'origin'
 git remote rm origin // this will allow you to remove the remote repo from git. You can add it back again with git remote add origin url like before
 cat .git/config  // this will show you your git config file with info like where your remote repo url is
+
+Common senario: you clone someone else's repo and start using it for a project. Problem: their repo is your origin. You need to remove that origin and use your own origin
+git remote -v  // this will tell you the remote origin url
+git remote rm origin  // this will remove their url as the origin
+git remote add origin mygithubrepoUrl  // this will make my github repo the origin. Now I'm good to go with using git to save my stuff
 
 
 git SETUP-----------------
