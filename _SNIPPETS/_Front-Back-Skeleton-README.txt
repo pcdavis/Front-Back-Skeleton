@@ -16,6 +16,7 @@ SHORT VERSION OF THE PROCESS:
 5. Connect front-end to server and database and test Auth0
 6. Add Router to front end
 7. Add Redux to front end
+8. Use ngrok to enable a public url of your work
 
 FOLDER STRUCTURE -------------------------------------
 Group files by feature // allows you to use in any app
