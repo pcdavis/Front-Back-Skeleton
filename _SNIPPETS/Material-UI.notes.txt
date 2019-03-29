@@ -1,9 +1,41 @@
+Be sure to check these resources for updated setup steps:
+- Gatsby material ui plugin: https://www.gatsbyjs.org/packages/gatsby-plugin-material-ui/?=material
+- Material has 2 options for icons:
+1.  SvgIcon component: first install the npm package: npm install @material-ui/icons (details at https://www.npmjs.com/package/@material-ui/icons)  then import the icon - import DeleteIcon from '@material-ui/icons/Delete or import { DeleteIcon, Menu } from '@material-ui/icons' - if app supports 'tree shaking'
+Here's where you can find all the available icons to choose from: https://material.io/tools/icons/?style=baseline
+Then use it as a component in your code: <DeleteIcon />
+
+ you supply the svg path or you can choose one from their library and import it with @material-ui/icons
+
+ and Icon components that use their font library - https://material-ui.com/style/icons/
+- Material UI framework: https://material-ui.com/getting-started/installation/
+
+Getting started with basic react app:
 1. Create react app
 2. npm install @material-ui/core @material/ui/icons
 3. in the public/index.html place two links:
  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+Getting started with a Gatsby project assuming your gatsby site is already started without material-ui
+1. npm install --save gatsby-plugin-material-ui @material-ui/core @material/ui/icons
+2. go into gatsby-config.js and add the following plugin: {
+      resolve: `gatsby-plugin-material-ui`,
+      options: {
+        theme: {
+                primaryColor: '#9c27b0',
+              },
+        // Add any other options here
+      
+    },
+2. go into gatsby-config.js and add the following plugin for google fonts: {
+      resolve: "gatsby-plugin-web-font-loader",
+      options: {
+        google: {
+          families: ["Sofia", "Open Sans", "Roboto"]
+        }
+      }
+    },
 
  Grids:
 two types of Grid components: container or item. Container holds items. Container establishes spacing between items (8, 16, 24, 32 or 40). Item uses breakpoints to say how many of the 12 columns it should take up at different screen sizes ( xs, sm, md, lg, and xl)
