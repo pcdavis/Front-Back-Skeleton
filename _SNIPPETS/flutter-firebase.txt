@@ -1,0 +1,49 @@
+
+1. flutter create // create a flutter app
+2. Open android/app/src/main/androidmanifest.xml and get the name of the flutter's package (package="com.mytourguide.test"). You'll use that in the next step
+2. on google portal create your firebase project - use the package name from above.
+create android / ios version and save the google-services.json locally
+drag the google-services.json file into the android/app folder
+open the android/gradle/build.gradle file and add the following line to dependencies:
+classpath 'com.google.gms:google-services:3.2.0'
+open the android/app/build.gradle file and add the following line of code to the bottom:
+apply plugin: 'com.google.gms:google-services'
+
+open the pubspec.yaml file and add the following line under dependencies:
+cloud_firestore:
+http: ^0.12.0+2
+css_colors: ^1.0.2
+then right click it and choose 'get packages' or in the cli type flutter packages get
+
+Now you're ready to use firestore in the app
+
+Open the dart file where you want to use firestore and add the following import:
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+Firebase Error Solution:
+
+https://stackoverflow.com/questions/54574235/flutter-and-firebase-execution-failed-for-task-firebase-authcompiledebugjava/54936564
+
+You need add this lines in your file graddle.properties
+
+android.useAndroidX=true
+android.enableJetifier=true
+
+Error with multidex - too large to process 64k
+https://developer.android.com/studio/build/multidex
+
+Modify the module-level build.gradle file to enable multidex and add the multidex library as a dependency, as shown here:
+
+android {
+    defaultConfig {
+        ...
+        minSdkVersion 15 
+        targetSdkVersion 28
+        multiDexEnabled true
+    }
+    ...
+}
+
+dependencies {
+  compile 'com.android.support:multidex:1.0.3'
+}
